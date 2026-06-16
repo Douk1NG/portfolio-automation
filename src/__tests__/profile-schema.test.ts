@@ -31,6 +31,7 @@ describe('ProfileSchema', () => {
     projects: [
       {
         url: 'https://project.com',
+        repoUrl: 'https://github.com/project',
         tags: ['React'],
         name: { es: 'Proj', en: 'Proj' },
         description: { es: 'Desc', en: 'Desc' },
@@ -82,7 +83,7 @@ describe('ProfileSchema', () => {
       linkedin: '',
       github: '',
       portfolioUrl: '',
-      projects: [{ ...validProfile.projects[0], url: '' }],
+      projects: [{ ...validProfile.projects[0], url: '', repoUrl: '' }],
     };
     const result = ProfileSchema.safeParse(profileWithEmptyUrls);
     expect(result.success).toBe(true);

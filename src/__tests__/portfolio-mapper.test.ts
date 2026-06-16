@@ -39,6 +39,7 @@ const mockProfile = {
       key_description: { en: 'Key desc', es: 'Desc clave' },
       tags: ['TypeScript'],
       url: 'https://project1.com',
+      repoUrl: 'https://github.com/project1',
     },
   ],
   skills: [{ name: 'React', category: 'Frontend' }],

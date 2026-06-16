@@ -29,6 +29,7 @@ export const LanguageSchema = z.object({
 
 export const ProjectSchema = z.object({
   url: z.string().url('Invalid URL').or(z.literal('')),
+  repoUrl: z.string().url('Invalid URL').or(z.literal('')),
   tags: z.array(z.string()),
   name: LocalizedStringSchema,
   description: LocalizedStringSchema,

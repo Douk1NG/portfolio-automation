@@ -97,11 +97,17 @@ ${profile.education
 
   const projectsSection = profile.projects
     .map(
-      (proj) => `
-    \\noindent{\\large\\color{EmphasisColor} ${t(proj.name, lang)}} \\hfill \\href{${proj.url}}{DEMO} \\\\
+      (proj) => {
+        const pLinks = [];
+        if (proj.url) pLinks.push(`\\href{${proj.url}}{DEMO}`);
+        if (proj.repoUrl) pLinks.push(`\\href{${proj.repoUrl}}{REPO}`);
+        const linkStr = pLinks.length ? ` \\hfill ${pLinks.join(' \\quad | \\quad ')}` : '';
+        return `
+    \\noindent{\\large\\color{EmphasisColor} ${t(proj.name, lang)}}${linkStr} \\\\
     \\textbf{\\color{SecondaryColor} ${t(proj.key_description, lang)}} \\\\[2pt]
     ${t(proj.description, lang)}
-    \\vspace{4pt}`,
+    \\vspace{4pt}`;
+      }
     )
     .join('\n');
 

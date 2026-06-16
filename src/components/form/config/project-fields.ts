@@ -11,8 +11,15 @@ export const projectFields: FieldConfig[] = [
   },
   {
     name: 'url',
-    label: 'URL',
+    label: 'Demo URL',
     placeholder: 'https://...',
+    type: 'autosize',
+    leftIcon: LinkIcon,
+  },
+  {
+    name: 'repoUrl',
+    label: 'Repo URL',
+    placeholder: 'https://github.com/...',
     type: 'autosize',
     leftIcon: LinkIcon,
   },

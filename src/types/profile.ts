@@ -32,6 +32,7 @@ export type Project = {
   description: LocalizedString;
   key_description: LocalizedString;
   url: string;
+  repoUrl: string;
   tags: string[];
 };
 

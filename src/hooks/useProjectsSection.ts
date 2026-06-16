@@ -11,6 +11,7 @@ export function useProjectsSection({ form, sectionPath }: UseProjectsSectionProp
   const handleAddProject = useCallback(() => {
     form.pushFieldValue(sectionPath, {
       url: '',
+      repoUrl: '',
       tags: [],
       name: { es: '', en: '' },
       description: { es: '', en: '' },

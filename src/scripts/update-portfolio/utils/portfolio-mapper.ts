@@ -90,7 +90,7 @@ export const mapProjectsData = (profile: Profile): ProjectEntry[] => {
       description: `project${id}.desc`,
       key_description: `project${id}.key_description`,
       tech: skillNamesToEntries(project.tags || [], profile.skills),
-      github: project.url,
+      github: project.repoUrl,
       demo: project.url,
     };
   });
