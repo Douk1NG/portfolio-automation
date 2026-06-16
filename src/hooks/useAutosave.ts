@@ -6,7 +6,12 @@ const AUTOSAVE_DEBOUNCE_MS = 2500;
 let autosaveTimerId: ReturnType<typeof setTimeout> | null = null;
 
 const executeSave = async () => {
-  const { profile, lastSavedProfileJson, saveStatus, saveProfile } = useProfileStore.getState();
+  const { profile, lastSavedProfileJson, saveStatus, saveProfile, isBackendAvailable } =
+    useProfileStore.getState();
+
+  if (!isBackendAvailable) {
+    return;
+  }
 
   if (!profile) {
     return;

@@ -12,9 +12,12 @@ export const useProfile = () => {
 
   const fetchProfile = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await ProfileService.fetchProfile();
+    const { data, error, isStaticFallback } = await ProfileService.fetchProfile();
     if (data) {
       setProfile(data);
+      if (isStaticFallback) {
+        useProfileStore.getState().setBackendAvailable(false);
+      }
     } else if (error) {
       addLog(`ERROR: ${error}`);
     }

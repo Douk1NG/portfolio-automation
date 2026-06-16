@@ -9,6 +9,7 @@ export type ProfileStore = {
   formCommit: (() => Profile) | null;
   saveStatus: 'saved' | 'saving' | 'error';
   lastSavedProfileJson: string | null;
+  isBackendAvailable: boolean;
 
   setProfile: (profile: Profile | null, skipHistory?: boolean) => void;
   updateProfileData: (data: Partial<Profile>, immediate?: boolean) => void;
@@ -19,6 +20,7 @@ export type ProfileStore = {
   saveProfile: () => Promise<boolean>;
   setSaveStatus: (saveStatus: 'saved' | 'saving' | 'error') => void;
   setLastSavedProfileJson: (lastSavedProfileJson: string | null) => void;
+  setBackendAvailable: (isBackendAvailable: boolean) => void;
 };
 
 let snapshotTimeout: NodeJS.Timeout | null = null;
@@ -31,6 +33,7 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
   formCommit: null,
   saveStatus: 'saved',
   lastSavedProfileJson: null,
+  isBackendAvailable: true,
 
   setProfile: (profile, skipHistory = false) => {
     if (snapshotTimeout) {
@@ -149,8 +152,8 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
   },
 
   saveProfile: async () => {
-    const { profile } = get();
-    if (!profile) return false;
+    const { profile, isBackendAvailable } = get();
+    if (!profile || !isBackendAvailable) return false;
 
     set({ saveStatus: 'saving' });
     try {
@@ -169,11 +172,12 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
     } catch (error) {
       console.error('Failed to save profile', error);
       useUIStore.getState().addLog('ERROR: Save failed');
-      set({ saveStatus: 'error' });
+      set({ saveStatus: 'error', isBackendAvailable: false });
       return false;
     }
   },
 
   setSaveStatus: (saveStatus) => set({ saveStatus }),
   setLastSavedProfileJson: (lastSavedProfileJson) => set({ lastSavedProfileJson }),
+  setBackendAvailable: (isBackendAvailable) => set({ isBackendAvailable }),
 }));
