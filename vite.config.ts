@@ -5,7 +5,7 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/automate-curriculum/',
+  base: '/portfolio-automation/',
   envPrefix: ['VITE_', 'DOWNLOADS_PATH'],
   plugins: [react(), tailwindcss()],
   resolve: {
