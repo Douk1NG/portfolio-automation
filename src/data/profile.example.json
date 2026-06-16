@@ -1,0 +1,105 @@
+{
+  "name": "John",
+  "surname": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "+00 000000000",
+  "linkedin": "https://www.linkedin.com/in/johndoe/",
+  "github": "https://github.com/johndoe/",
+  "title": {
+    "es": "Desarrollador Frontend",
+    "en": "Frontend Developer"
+  },
+  "bio": {
+    "es": "Desarrollador web con experiencia en la creación de interfaces modernas y eficientes.",
+    "en": "Web developer with experience building modern and efficient interfaces."
+  },
+  "location": {
+    "es": "Ciudad, País",
+    "en": "City, Country"
+  },
+  "portfolioUrl": "https://johndoe.com",
+  "skills": [
+    {
+      "id": "1",
+      "name": "React",
+      "category": "Frontend Development"
+    },
+    {
+      "id": "2",
+      "name": "TypeScript",
+      "category": "Frontend Development"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Example Corp",
+      "start": "JAN 2020",
+      "end": "PRESENT",
+      "role": {
+        "es": "Desarrollador Senior",
+        "en": "Senior Developer"
+      },
+      "location": {
+        "es": "Remoto",
+        "en": "Remote"
+      },
+      "description": {
+        "es": "Liderazgo técnico en proyectos de gran escala.",
+        "en": "Technical leadership on large-scale projects."
+      },
+      "skills": ["React", "TypeScript"]
+    }
+  ],
+  "projects": [
+    {
+      "url": "https://github.com/johndoe/example-project",
+      "tags": ["React", "Vite"],
+      "name": {
+        "es": "Proyecto de Ejemplo",
+        "en": "Example Project"
+      },
+      "description": {
+        "es": "Una aplicación web de ejemplo.",
+        "en": "An example web application."
+      },
+      "key_description": {
+        "es": "Herramienta",
+        "en": "Tool"
+      }
+    }
+  ],
+  "education": [
+    {
+      "start": "2015",
+      "end": "2019",
+      "institution": "University of Technology",
+      "degree": {
+        "es": "Ingeniería de Software",
+        "en": "Software Engineering"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "name": {
+        "es": "Inglés",
+        "en": "English"
+      },
+      "level": "C1"
+    }
+  ],
+  "devProjects": {
+    "title": {
+      "es": "Proyectos Personales",
+      "en": "Personal Projects"
+    },
+    "date": {
+      "es": "2024",
+      "en": "2024"
+    },
+    "description": {
+      "es": "Explorando nuevas tecnologías.",
+      "en": "Exploring new technologies."
+    }
+  }
+}

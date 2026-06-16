@@ -1,0 +1,8 @@
+node_modules
+.env
+.agents
+.auth
+dist
+src/data/profile.json
+src/data/raw-portfolio-data.json
+files/

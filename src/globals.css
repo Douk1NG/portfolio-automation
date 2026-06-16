@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans:
+    'Outfit', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+
+  /* Sleek, deep tech dark theme */
+  --color-background: hsl(224 35% 5%);
+  --color-foreground: hsl(210 40% 98%);
+
+  /* Glassy or distinct cards */
+  --color-card: hsl(224 30% 8%);
+  --color-card-foreground: hsl(210 40% 98%);
+
+  --color-popover: hsl(224 30% 8%);
+  --color-popover-foreground: hsl(210 40% 98%);
+
+  /* Electric accent (Violet/Fuchsia) */
+  --color-primary: hsl(265 89% 65%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  /* Darker secondaries for contrast */
+  --color-secondary: hsl(224 25% 14%);
+  --color-secondary-foreground: hsl(210 40% 98%);
+
+  --color-muted: hsl(224 25% 14%);
+  --color-muted-foreground: hsl(215 20% 65%);
+
+  --color-accent: hsl(265 50% 20%);
+  --color-accent-foreground: hsl(265 90% 80%);
+
+  /* Destructive - Neon Red/Orange */
+  --color-destructive: hsl(350 80% 50%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(224 25% 16%);
+  --color-input: hsl(224 30% 12%);
+  --color-ring: hsl(265 89% 65%);
+
+  --radius-xl: 1rem;
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
