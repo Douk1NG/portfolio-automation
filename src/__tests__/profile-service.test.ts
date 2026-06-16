@@ -12,15 +12,16 @@ describe('ProfileService', () => {
     expect(error).toBeNull();
   });
 
-  it('fetchProfile should return error on failure', async () => {
+  it('fetchProfile should fall back to static data on failure', async () => {
     server.use(
       http.get('/api/profile', () => {
         return new HttpResponse(null, { status: 500 });
       }),
     );
-    const { data, error } = await ProfileService.fetchProfile();
-    expect(data).toBeNull();
-    expect(error).toContain('500');
+    const { data, error, isStaticFallback } = await ProfileService.fetchProfile();
+    expect(data).toBeDefined();
+    expect(isStaticFallback).toBe(true);
+    expect(error).toBeNull();
   });
 
   it('saveProfile should send data correctly', async () => {
