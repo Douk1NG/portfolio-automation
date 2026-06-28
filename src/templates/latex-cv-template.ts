@@ -49,7 +49,6 @@ export const buildCvTex = (
     includeSkills: true,
     includeLanguages: true,
     includeProjects: true,
-    includeDevProjects: true,
     includeLinkedin: true,
     includeGithub: true,
     includePortfolio: true,
@@ -70,7 +69,7 @@ export const buildCvTex = (
         })
         .join('')}`,
     )
-    .join('\n\n    \\vspace{2pt}\n    ');
+    .join('\n\n    \\vspace{1pt}\n    ');
 
   const experienceSection = profile.experience
     .map(
@@ -78,22 +77,18 @@ export const buildCvTex = (
     \\noindent{\\large\\color{EmphasisColor} ${t(exp.role, lang)}} \\hfill ${esc(exp.start)} -- ${esc(exp.end)} \\\\
     \\textbf{\\color{SecondaryColor} ${esc(exp.company)}} \\hfill ${t(exp.location, lang)} \\\\[2pt]
     ${t(exp.description, lang)}
-    \\vspace{6pt}`,
+    \\vspace{4pt}`,
     )
     .join('\n');
 
-  const educationSection = `\\begin{multicols}{2}
-${profile.education
+  const educationSection = profile.education
   .map(
     (edu) => `
-    \\noindent{\\large\\color{EmphasisColor}
-    ${t(edu.degree, lang)}}  \\\\
-    ${esc(edu.start)} -- ${esc(edu.end)} \\\\
+    \\noindent{\\large\\color{EmphasisColor} ${t(edu.degree, lang)}} \\hfill ${esc(edu.start)} -- ${esc(edu.end)} \\\\
     \\textbf{\\color{SecondaryColor} ${esc(edu.institution.trim())}}
-    \\vspace{4pt}`,
+    \\vspace{2pt}`,
   )
-  .join('\n')}
-\\end{multicols}`;
+  .join('\n');
 
   const projectsSection = profile.projects
     .map(
@@ -106,7 +101,7 @@ ${profile.education
     \\noindent{\\large\\color{EmphasisColor} ${t(proj.name, lang)}}${linkStr} \\\\
     \\textbf{\\color{SecondaryColor} ${t(proj.key_description, lang)}} \\\\[2pt]
     ${t(proj.description, lang)}
-    \\vspace{4pt}`;
+    \\vspace{2pt}`;
       }
     )
     .join('\n');
@@ -130,11 +125,6 @@ ${profile.education
   const expBlock =
     opts.includeExperience && profile.experience && profile.experience.length > 0
       ? `\n% ── EXPERIENCE ───────────────────────────────────────────────────────────────\n\\section{${lang === 'en' ? 'Experience' : 'Experiencia'}}\n${experienceSection}\n`
-      : '';
-
-  const devProjBlock =
-    opts.includeDevProjects && profile.devProjects
-      ? `\n% Dev Projects block (from your devProjects field)\n\\noindent{\\large\\color{EmphasisColor} ${t(profile.devProjects.title, lang)}} \\hfill ${t(profile.devProjects.date, lang)} \\\\[2pt]\n${t(profile.devProjects.description, lang)}\n`
       : '';
 
   const projBlock =
@@ -162,9 +152,11 @@ ${profile.education
 \\usepackage{hyperref}
 \\usepackage{parskip}
 \\usepackage{enumitem}
-\\usepackage{multicol}
+\\usepackage{cmap}
 \\usepackage[T1]{fontenc}
 \\usepackage[utf8]{inputenc}
+\\input{glyphtounicode}
+\\pdfgentounicode=1
 \\usepackage{xcolor}
 \\usepackage{tikz}
 
@@ -188,7 +180,7 @@ ${profile.education
 % Section styling
 \\usepackage{titlesec}
 \\titleformat{\\section}{\\LARGE\\rmfamily\\bfseries\\color{PrimaryColor}}{}{0em}{}[\\color{ThirdColor}\\titlerule]
-\\titlespacing{\\section}{0pt}{8pt}{4pt}
+\\titlespacing{\\section}{0pt}{6pt}{3pt}
 
 \\hypersetup{
   colorlinks=true,
@@ -206,13 +198,13 @@ ${profile.education
   {\\Huge\\rmfamily\\bfseries\\color{PrimaryColor} ${esc(profile.name)} ${esc(profile.surname)}} \\\\[4pt]
   {\\large\\bfseries\\color{PrimaryColor} ${t(profile.title, lang)}} \\\\[4pt]
   {\\small\\bfseries
-  ${esc(profile.email)} \\quad | \\quad
-  ${esc(profile.phone)} \\quad | \\quad
+  \\href{mailto:${esc(profile.email)}}{${esc(profile.email)}} \\quad | \\quad
+  \\href{tel:${esc(profile.phone).replace(/\s/g, '')}}{${esc(profile.phone)}} \\quad | \\quad
   ${t(profile.location, lang)} \\\\[2pt]
   ${linksLine}
   }
 \\end{center}
-${bioBlock}${expBlock}${devProjBlock}${projBlock}${skillsBlock}${eduBlock}${langBlock}
+${bioBlock}${skillsBlock}${expBlock}${projBlock}${eduBlock}${langBlock}
 \\end{document}
 `;
 };

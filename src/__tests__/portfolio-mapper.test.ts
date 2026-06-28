@@ -43,11 +43,6 @@ const mockProfile = {
     },
   ],
   skills: [{ name: 'React', category: 'Frontend' }],
-  devProjects: {
-    title: { en: 'Personal Projects', es: 'Proyectos Personales' },
-    date: { en: '2024', es: '2024' },
-    description: { en: 'Desc', es: 'Desc' },
-  },
 } as Profile;
 
 describe('Portfolio Mapper', () => {

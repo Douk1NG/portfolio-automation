@@ -36,12 +36,6 @@ export type Project = {
   tags: string[];
 };
 
-export type DevProjects = {
-  title: LocalizedString;
-  date: LocalizedString;
-  description: LocalizedString;
-};
-
 export type Skill = {
   id: string;
   name: string;
@@ -66,7 +60,6 @@ export type ProfileData = {
   skills: Skill[];
   languages: Language[];
   projects: Project[];
-  devProjects: DevProjects;
 };
 
 export type Profile = ProfileData;
@@ -78,7 +71,6 @@ export type CvGenerationOptions = {
   includeSkills: boolean;
   includeLanguages: boolean;
   includeProjects: boolean;
-  includeDevProjects: boolean;
   includeLinkedin: boolean;
   includeGithub: boolean;
   includePortfolio: boolean;

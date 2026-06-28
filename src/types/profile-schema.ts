@@ -36,12 +36,6 @@ export const ProjectSchema = z.object({
   key_description: LocalizedStringSchema,
 });
 
-export const DevProjectsSchema = z.object({
-  title: LocalizedStringSchema,
-  date: LocalizedStringSchema,
-  description: LocalizedStringSchema,
-});
-
 export const SkillSchema = z.object({
   id: z.string(),
   name: z.string().min(1, 'Skill name is required'),
@@ -64,7 +58,6 @@ export const ProfileSchema = z.object({
   skills: z.array(SkillSchema),
   experience: z.array(ExperienceSchema),
   projects: z.array(ProjectSchema),
-  devProjects: DevProjectsSchema,
   education: z.array(EducationSchema),
   languages: z.array(LanguageSchema),
 });

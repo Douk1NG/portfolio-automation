@@ -64,11 +64,6 @@ describe('latex-cv-template', () => {
       skills: [],
       languages: [],
       projects: [],
-      devProjects: {
-        title: { en: 'Dev Projects', es: 'Proyectos Dev' },
-        date: { en: '2024', es: '2024' },
-        description: { en: 'Desc', es: 'Desc' },
-      },
     };
 
     it('generates valid LaTeX for English', () => {

@@ -8,7 +8,6 @@ import {
   Cpu,
   GraduationCap,
   Languages as LangIcon,
-  FolderGit2,
 } from 'lucide-react';
 import type { ProfileSectionId } from '@/types/ui/profile-sidebar';
 
@@ -16,7 +15,6 @@ const sections = [
   { id: 'personal', label: 'Personal', icon: User },
   { id: 'experience', label: 'Experience', icon: Briefcase },
   { id: 'projects', label: 'Projects', icon: Code2 },
-  { id: 'devProjects', label: 'Dev Projects', icon: FolderGit2 },
   { id: 'skills', label: 'Skills', icon: Cpu },
   { id: 'education', label: 'Education', icon: GraduationCap },
   { id: 'languages', label: 'Languages', icon: LangIcon },

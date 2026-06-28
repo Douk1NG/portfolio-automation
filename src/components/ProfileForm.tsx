@@ -3,7 +3,6 @@ import { useUIStore } from '@/store/useUIStore';
 import PersonalSection from './sections/personal/PersonalSection';
 import ExperienceSection from './sections/experience/ExperienceSection';
 import ProjectsSection from './sections/projects/ProjectsSection';
-import DevProjectsSection from './sections/devprojects/DevProjectsSection';
 import SkillsSection from './sections/skills/SkillsSection';
 import EducationSection from './sections/education/EducationSection';
 import LanguagesSection from './sections/languages/LanguagesSection';
@@ -16,7 +15,6 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ form: ProfileForm
   personal: PersonalSection,
   experience: ExperienceSection,
   projects: ProjectsSection,
-  devProjects: DevProjectsSection,
   skills: SkillsSection,
   education: EducationSection,
   languages: LanguagesSection,

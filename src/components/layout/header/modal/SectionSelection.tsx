@@ -6,7 +6,6 @@ export const SectionSelection: React.FC = () => {
     { key: 'includeBio', label: 'Profile (Bio)' },
     { key: 'includeExperience', label: 'Experience' },
     { key: 'includeProjects', label: 'Projects' },
-    { key: 'includeDevProjects', label: 'Dev Projects' },
     { key: 'includeSkills', label: 'Skills' },
     { key: 'includeEducation', label: 'Education' },
     { key: 'includeLanguages', label: 'Languages' },

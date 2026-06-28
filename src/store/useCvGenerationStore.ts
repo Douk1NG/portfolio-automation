@@ -20,7 +20,6 @@ const DEFAULT_OPTIONS: CvGenerationOptions = {
   includeSkills: true,
   includeLanguages: true,
   includeProjects: true,
-  includeDevProjects: true,
   includeLinkedin: true,
   includeGithub: true,
   includePortfolio: true,

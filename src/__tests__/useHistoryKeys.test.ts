@@ -21,11 +21,6 @@ const mockProfile: Profile = {
   skills: [],
   languages: [],
   projects: [],
-  devProjects: {
-    title: { es: '', en: '' },
-    date: { es: '', en: '' },
-    description: { es: '', en: '' },
-  },
 };
 
 function fireKeydown(options: Partial<KeyboardEvent>) {
