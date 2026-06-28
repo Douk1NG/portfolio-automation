@@ -38,11 +38,6 @@ describe('ProfileSchema', () => {
         key_description: { es: 'Key', en: 'Key' },
       },
     ],
-    devProjects: {
-      title: { es: 'Dev', en: 'Dev' },
-      date: { es: '2024', en: '2024' },
-      description: { es: 'Desc', en: 'Desc' },
-    },
     education: [
       {
         institution: 'University',

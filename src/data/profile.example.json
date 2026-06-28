@@ -47,13 +47,19 @@
         "es": "Liderazgo técnico en proyectos de gran escala.",
         "en": "Technical leadership on large-scale projects."
       },
-      "skills": ["React", "TypeScript"]
+      "skills": [
+        "React",
+        "TypeScript"
+      ]
     }
   ],
   "projects": [
     {
       "url": "https://github.com/johndoe/example-project",
-      "tags": ["React", "Vite"],
+      "tags": [
+        "React",
+        "Vite"
+      ],
       "name": {
         "es": "Proyecto de Ejemplo",
         "en": "Example Project"
@@ -87,19 +93,5 @@
       },
       "level": "C1"
     }
-  ],
-  "devProjects": {
-    "title": {
-      "es": "Proyectos Personales",
-      "en": "Personal Projects"
-    },
-    "date": {
-      "es": "2024",
-      "en": "2024"
-    },
-    "description": {
-      "es": "Explorando nuevas tecnologías.",
-      "en": "Exploring new technologies."
-    }
-  }
+  ]
 }
