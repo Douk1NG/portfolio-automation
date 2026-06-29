@@ -4,14 +4,7 @@ export const educationFields: FormFieldConfig[] = [
   {
     name: 'institution',
     label: 'Institution',
-    placeholder: 'event.g., University of Technology',
-  },
-  {
-    name: 'degree',
-    label: 'Degree',
-    placeholder: 'event.g., B.S. in Computer Science',
-    localized: true,
-    type: 'autosize',
+    placeholder: 'event.g., University of Technology'
   },
   {
     group: 'dates',
@@ -27,5 +20,12 @@ export const educationFields: FormFieldConfig[] = [
         placeholder: 'event.g., 2022',
       },
     ],
+  },
+  {
+    name: 'degree',
+    label: 'Degree',
+    placeholder: 'event.g., B.S. in Computer Science',
+    localized: true,
+    type: 'autosize',
   },
 ];

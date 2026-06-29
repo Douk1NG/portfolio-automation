@@ -61,15 +61,15 @@ export const buildCvTex = (
       ([category, names]) =>
         `\\textbf{\\color{EmphasisColor}${esc(category)}:}\\
       ${names
-        .map((n) => {
-          if (n === names[names.length - 1]) {
-            return `\\textbf{${esc(n)}}`;
-          }
-          return `\\textbf{${esc(n)} }, `;
-        })
-        .join('')}`,
+          .map((n) => {
+            if (n === names[names.length - 1]) {
+              return `{${esc(n)}}.`;
+            }
+            return `{${esc(n)}}, `;
+          })
+          .join('')}`,
     )
-    .join('\n\n    \\vspace{1pt}\n    ');
+    .join('\\\\');
 
   const experienceSection = profile.experience
     .map(
@@ -82,13 +82,13 @@ export const buildCvTex = (
     .join('\n');
 
   const educationSection = profile.education
-  .map(
-    (edu) => `
+    .map(
+      (edu) => `
     \\noindent{\\large\\color{EmphasisColor} ${t(edu.degree, lang)}} \\hfill ${esc(edu.start)} -- ${esc(edu.end)} \\\\
     \\textbf{\\color{SecondaryColor} ${esc(edu.institution.trim())}}
     \\vspace{2pt}`,
-  )
-  .join('\n');
+    )
+    .join('\n');
 
   const projectsSection = profile.projects
     .map(

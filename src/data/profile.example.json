@@ -55,7 +55,8 @@
   ],
   "projects": [
     {
-      "url": "https://github.com/johndoe/example-project",
+      "url": "https://example.com/project",
+      "repoUrl": "https://github.com/johndoe/example-project",
       "tags": [
         "React",
         "Vite"

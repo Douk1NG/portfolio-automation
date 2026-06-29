@@ -1,6 +1,6 @@
-import { FieldConfig } from '@/types/form-types';
+import { FormFieldConfig } from '@/types/form-types';
 
-export const experienceFields: FieldConfig[] = [
+export const experienceFields: FormFieldConfig[] = [
   {
     name: 'company',
     label: 'Company',
@@ -21,16 +21,21 @@ export const experienceFields: FieldConfig[] = [
     type: 'autosize',
   },
   {
-    name: 'start',
-    label: 'Start Period',
-    placeholder: 'event.g., JAN 2022',
-    type: 'autosize',
-  },
-  {
-    name: 'end',
-    label: 'End Period',
-    placeholder: 'event.g., PRESENT',
-    type: 'autosize',
+    group: 'dates',
+    fields: [
+      {
+        name: 'start',
+        label: 'Start Period',
+        placeholder: 'event.g., JAN 2022',
+        type: 'autosize',
+      },
+      {
+        name: 'end',
+        label: 'End Period',
+        placeholder: 'event.g., PRESENT',
+        type: 'autosize',
+      },
+    ],
   },
   {
     name: 'description',

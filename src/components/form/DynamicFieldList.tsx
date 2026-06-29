@@ -57,7 +57,7 @@ export const DynamicFieldList: React.FC<DynamicFieldListProps> = ({
       {fields.map((config) => {
         if ('group' in config) {
           return (
-            <div key={config.group} className="flex justify-between gap-4">
+            <div key={config.group} className="grid grid-cols-2 justify-between gap-4">
               {config.fields.map(renderField)}
             </div>
           );

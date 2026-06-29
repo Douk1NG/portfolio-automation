@@ -16,7 +16,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   leftIcon: LeftIcon,
 }) => {
   return (
-    <div className="space-y-2">
+    <div className="flex flex-col gap-2">
       <Label
         htmlFor={name}
         className="text-muted-foreground uppercase text-[10px] tracking-widest font-bold"

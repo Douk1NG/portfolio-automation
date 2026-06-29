@@ -1,17 +1,22 @@
-import { FieldConfig } from '@/types/form-types';
+import { FormFieldConfig } from '@/types/form-types';
 
-export const personalFields: FieldConfig[] = [
+export const personalFields: FormFieldConfig[] = [
   {
-    name: 'name',
-    label: 'Name',
-    placeholder: 'event.g., John',
-    type: 'autosize',
-  },
-  {
-    name: 'surname',
-    label: 'Surname',
-    placeholder: 'event.g., Doe',
-    type: 'autosize',
+    group: 'name',
+    fields: [
+      {
+        name: 'name',
+        label: 'Name',
+        placeholder: 'event.g., John',
+        type: 'autosize',
+      },
+      {
+        name: 'surname',
+        label: 'Surname',
+        placeholder: 'event.g., Doe',
+        type: 'autosize',
+      },
+    ],
   },
   {
     name: 'title',
@@ -21,16 +26,21 @@ export const personalFields: FieldConfig[] = [
     type: 'autosize',
   },
   {
-    name: 'email',
-    label: 'Email Address',
-    placeholder: 'your.email@example.com',
-    type: 'autosize',
-  },
-  {
-    name: 'phone',
-    label: 'Phone Number',
-    placeholder: 'event.g., +34 600 000 000',
-    type: 'autosize',
+    group: 'contact',
+    fields: [
+      {
+        name: 'email',
+        label: 'Email Address',
+        placeholder: 'your.email@example.com',
+        type: 'autosize',
+      },
+      {
+        name: 'phone',
+        label: 'Phone Number',
+        placeholder: 'event.g., +34 600 000 000',
+        type: 'autosize',
+      },
+    ],
   },
   {
     name: 'location',

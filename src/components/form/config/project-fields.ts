@@ -10,20 +10,6 @@ export const projectFields: FieldConfig[] = [
     type: 'autosize',
   },
   {
-    name: 'url',
-    label: 'Demo URL',
-    placeholder: 'https://...',
-    type: 'autosize',
-    leftIcon: LinkIcon,
-  },
-  {
-    name: 'repoUrl',
-    label: 'Repo URL',
-    placeholder: 'https://github.com/...',
-    type: 'autosize',
-    leftIcon: LinkIcon,
-  },
-  {
     name: 'description',
     label: 'Description',
     type: 'textarea',
@@ -38,4 +24,18 @@ export const projectFields: FieldConfig[] = [
     className: 'md:col-span-2',
     localized: true,
   },
+  {
+    name: 'url',
+    label: 'Demo URL',
+    placeholder: 'https://...',
+    type: 'autosize',
+    leftIcon: LinkIcon,
+  },
+  {
+    name: 'repoUrl',
+    label: 'Repo URL',
+    placeholder: 'https://github.com/...',
+    type: 'autosize',
+    leftIcon: LinkIcon,
+  }
 ];
