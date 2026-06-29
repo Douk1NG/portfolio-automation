@@ -34,12 +34,12 @@ const EducationSection: React.FC<EducationSectionProps> = ({ form }) => {
         </form.Field>
       }
     >
-      <form.Field name={sectionPath}>
+      <form.Field name={sectionPath} mode="array">
         {(field) => (
           <div className="space-y-8">
-            {(field.state.value as Education[]).map((_item, i: number) => (
+            {(field.state.value as Education[]).map((item, i: number) => (
               <EducationItem
-                key={i}
+                key={item.institution || item.start || i}
                 form={form}
                 index={i}
                 onRemove={() =>

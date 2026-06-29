@@ -1,35 +1,12 @@
-import { useProfileStore } from '@/store/useProfileStore';
-import { useUIStore } from '@/store/useUIStore';
-import PersonalSection from './sections/personal/PersonalSection';
-import ExperienceSection from './sections/experience/ExperienceSection';
-import ProjectsSection from './sections/projects/ProjectsSection';
-import SkillsSection from './sections/skills/SkillsSection';
-import EducationSection from './sections/education/EducationSection';
-import LanguagesSection from './sections/languages/LanguagesSection';
+import React from 'react';
 import { ProfileSidebar } from './layout/ProfileSidebar';
-import { useProfileForm } from '@/hooks/useProfileForm';
+import { useProfileFormView } from '@/hooks/useProfileFormView';
+import { ProfileFormContext } from '@/hooks/useProfileFormContext';
 import type { ProfileSectionId } from '@/types/ui/profile-sidebar';
-import type { ProfileFormApi } from '@/types/form-types';
-
-const SECTION_COMPONENTS: Record<string, React.ComponentType<{ form: ProfileFormApi }>> = {
-  personal: PersonalSection,
-  experience: ExperienceSection,
-  projects: ProjectsSection,
-  skills: SkillsSection,
-  education: EducationSection,
-  languages: LanguagesSection,
-};
-
-type SectionKey = keyof typeof SECTION_COMPONENTS;
 
 const ProfileForm: React.FC = () => {
-  const activeSection = useUIStore((state) => state.activeSection);
-  const setActiveSection = useUIStore((state) => state.setActiveSection);
-  const hasProfile = useProfileStore((state) => state.profile !== null);
-  const { form } = useProfileForm();
-
-  const Section = SECTION_COMPONENTS[activeSection as SectionKey];
-  const sectionContent = Section ? <Section form={form} /> : null;
+  const { activeSection, hasProfile, handleSectionChange, form, SectionComponent } =
+    useProfileFormView();
 
   if (!hasProfile) return null;
 
@@ -38,13 +15,20 @@ const ProfileForm: React.FC = () => {
       <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
       <ProfileSidebar
         activeSection={activeSection as ProfileSectionId}
-        setActiveSection={setActiveSection}
+        setActiveSection={handleSectionChange}
       />
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto bg-black/20">
-        <div className="p-2 h-full">{sectionContent}</div>
+        <div className="p-2 h-full">
+          {SectionComponent && (
+            <ProfileFormContext.Provider value={form}>
+              <SectionComponent form={form} />
+            </ProfileFormContext.Provider>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default ProfileForm;
+

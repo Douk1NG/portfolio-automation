@@ -22,15 +22,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ form }) => {
       iconColor="text-primary"
       action={<AddButton label="Add Experience" onClick={handleAddExperience} />}
     >
-      <form.Field name={sectionPath}>
+      <form.Field name={sectionPath} mode="array">
         {(field) => {
           const experiences = (field.state.value as Experience[]) || [];
 
           return (
             <div className="space-y-8">
-              {experiences.map((_item, index: number) => (
+              {experiences.map((item, index: number) => (
                 <ExperienceItem
-                  key={index}
+                  key={item.company || item.start || index}
                   form={form}
                   index={index}
                   onRemove={() => handleRemoveExperience(index)}

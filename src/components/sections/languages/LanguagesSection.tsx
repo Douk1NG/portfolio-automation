@@ -27,12 +27,12 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({ form }) => {
         </form.Field>
       }
     >
-      <form.Field name={sectionPath}>
+      <form.Field name={sectionPath} mode="array">
         {(field) => (
           <div className="space-y-6">
-            {(field.state.value as Language[]).map((_item, i: number) => (
+            {(field.state.value as Language[]).map((item, i: number) => (
               <LanguageItem
-                key={i}
+                key={item.name?.en || item.level || i}
                 form={form}
                 index={i}
                 onRemove={() =>

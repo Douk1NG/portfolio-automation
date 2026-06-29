@@ -15,8 +15,12 @@ export type FormFieldProps = {
 };
 
 export type FormFieldControlProps = {
-  form: ProfileFormApi;
-  name: ProfilePath;
+  displayValue: string;
+  field: {
+    name: string;
+    handleBlur: () => void;
+    handleChange: (value: never) => void;
+  };
   type?: FormFieldType;
   placeholder?: string;
   className?: string;
@@ -25,6 +29,6 @@ export type FormFieldControlProps = {
 };
 
 export type FormFieldErrorProps = {
-  form: ProfileFormApi;
-  name: ProfilePath;
+  hasErrors?: boolean;
+  errorMessage?: string;
 };

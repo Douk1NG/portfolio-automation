@@ -22,15 +22,15 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ form }) => {
       iconColor="text-primary"
       action={<AddButton label="Add Project" onClick={handleAddProject} />}
     >
-      <form.Field name={sectionPath}>
+      <form.Field name={sectionPath} mode="array">
         {(field) => {
           const projects = (field.state.value as Project[]) || [];
 
           return (
             <div className="space-y-8">
-              {projects.map((_item, index: number) => (
+              {projects.map((item, index: number) => (
                 <ProjectItem
-                  key={index}
+                  key={item.url || item.repoUrl || item.name?.en || index}
                   form={form}
                   index={index}
                   onRemove={() => handleRemoveProject(index)}

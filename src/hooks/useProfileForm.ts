@@ -21,7 +21,7 @@ export const useProfileForm = () => {
   const form = useForm({
     defaultValues: useProfileStore.getState().profile || ({} as Profile),
     validators: {
-      onChange: ProfileSchema,
+      onBlur: ProfileSchema,
     },
     onSubmit: async ({ value }) => {
       console.log('Form submission:', value);

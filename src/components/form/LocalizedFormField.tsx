@@ -16,6 +16,7 @@ type LocalizedFormFieldProps = {
   leftIcon?: LucideIcon;
 };
 
+
 const Header: React.FC<{ label: string }> = ({ label }) => {
   return (
     <div className="flex items-center gap-2 mb-3 border-b border-white/10 pb-3">
@@ -26,6 +27,35 @@ const Header: React.FC<{ label: string }> = ({ label }) => {
     </div>
   );
 };
+
+const LangTag: React.FC<{ lang: 'en' | 'es' }> = ({ lang }) => (
+  <div className="absolute right-3 top-0 bottom-0 flex items-center pointer-events-none z-10 pt-5.5">
+    <span className="text-[10px] font-black uppercase tracking-widest text-white bg-[#1F2937]/90 border border-white/10 shadow-sm px-2 py-0.5 rounded-md backdrop-blur-md">
+      {lang}
+    </span>
+  </div>
+);
+
+const Input: React.FC<LocalizedFormFieldProps & { lang: 'en' | 'es' }> = ({
+  form,
+  name,
+  label,
+  placeholder,
+  type,
+  leftIcon,
+  className,
+  lang
+}) => (
+  <FormField
+    form={form}
+    name={`${name}.${lang}` as ProfilePath}
+    label={label}
+    placeholder={placeholder ? `${placeholder} (${lang})` : undefined}
+    type={type}
+    leftIcon={leftIcon}
+    className={cn(className, type === 'textarea' ? 'pb-8' : '')}
+  />
+);
 
 export const LocalizedFormField: React.FC<LocalizedFormFieldProps> = ({
   form,
@@ -48,37 +78,31 @@ export const LocalizedFormField: React.FC<LocalizedFormFieldProps> = ({
       <div className="grid md:grid-cols-2 gap-6">
         {/* English Input */}
         <div className="relative">
-          <div className="absolute right-3 top-0 bottom-0 flex items-center pointer-events-none z-10 pt-5.5">
-            <span className="text-[10px] font-black uppercase tracking-widest text-white bg-[#1F2937]/90 border border-white/10 shadow-sm px-2 py-0.5 rounded-md backdrop-blur-md">
-              EN
-            </span>
-          </div>
-          <FormField
+          <LangTag lang="en" />
+          <Input
+            lang="en"
             form={form}
-            name={`${name}.en` as ProfilePath}
-            label={`${label}`}
-            placeholder={placeholder ? `${placeholder} (EN)` : undefined}
+            name={name}
+            label={label}
+            placeholder={placeholder}
             type={type}
             leftIcon={leftIcon}
-            className={cn('pr-14', type === 'textarea' ? 'pb-8' : '')}
+            className={className}
           />
         </div>
 
         {/* Spanish Input */}
         <div className="relative">
-          <div className="absolute right-3 top-0 bottom-0 flex items-center pointer-events-none z-10 pt-5.5">
-            <span className="text-[10px] font-black uppercase tracking-widest text-white bg-[#1F2937]/90 border border-white/10 shadow-sm px-2 py-0.5 rounded-md backdrop-blur-md">
-              ES
-            </span>
-          </div>
-          <FormField
+          <LangTag lang="es" />
+          <Input
+            lang="es"
             form={form}
-            name={`${name}.es` as ProfilePath}
-            label={`${label}`}
-            placeholder={placeholder ? `${placeholder} (ES)` : undefined}
+            name={name}
+            label={label}
+            placeholder={placeholder}
             type={type}
             leftIcon={leftIcon}
-            className={cn('pr-14', type === 'textarea' ? 'pb-8' : '')}
+            className={className}
           />
         </div>
       </div>

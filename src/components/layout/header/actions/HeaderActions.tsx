@@ -7,21 +7,36 @@ type HeaderActionsProps = {
   handleAction: (action: string, label: string) => void;
   isLoading: boolean;
   hasProfile: boolean;
+  saveProfile: () => Promise<boolean>;
 };
 
 export const HeaderActions: React.FC<HeaderActionsProps> = ({
   handleAction,
   isLoading,
   hasProfile,
+  saveProfile,
 }) => {
   return (
     <div className="flex flex-wrap items-center justify-center gap-2 bg-black/40 p-1.5 rounded-xl border border-white/5 shadow-inner">
       <OpenGenerateModalButton isLoading={isLoading} hasProfile={hasProfile} />
 
-      {/* <HeaderActionButton
-        onClick={() => handleAction('update-portfolio', 'Update')}
-      >updt portfolio (debug only)
-      </HeaderActionButton> */}
+      <HeaderActionButton
+        variant="outline"
+        onClick={() => {
+          saveProfile().then((success) => {
+            if (success) {
+              import('sonner').then(({ toast }) => toast.success('Profile saved manually!'));
+            } else {
+              import('sonner').then(({ toast }) => toast.error('Save failed.'));
+            }
+          });
+        }}
+        className="ml-2"
+        disabled={!hasProfile || isLoading}
+      >
+        Save
+      </HeaderActionButton>
+
       <HeaderActionButton
         variant="default"
         onClick={() => handleAction('publish', 'Publishing')}

@@ -8,7 +8,6 @@ export type ProfileStore = {
   profileRevision: number;
   formCommit: (() => Profile) | null;
   saveStatus: 'saved' | 'saving' | 'error';
-  lastSavedProfileJson: string | null;
   isBackendAvailable: boolean;
 
   setProfile: (profile: Profile | null, skipHistory?: boolean) => void;
@@ -19,7 +18,6 @@ export type ProfileStore = {
   fetchProfile: () => Promise<void>;
   saveProfile: () => Promise<boolean>;
   setSaveStatus: (saveStatus: 'saved' | 'saving' | 'error') => void;
-  setLastSavedProfileJson: (lastSavedProfileJson: string | null) => void;
   setBackendAvailable: (isBackendAvailable: boolean) => void;
 };
 
@@ -32,7 +30,6 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
   profileRevision: 0,
   formCommit: null,
   saveStatus: 'saved',
-  lastSavedProfileJson: null,
   isBackendAvailable: true,
 
   setProfile: (profile, skipHistory = false) => {
@@ -139,7 +136,6 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
       set((state) => ({
         profile: data,
         profileRevision: bumpRevision(state),
-        lastSavedProfileJson: JSON.stringify(data),
         saveStatus: 'saved',
       }));
       useHistoryStore.getState().clear();
@@ -152,20 +148,20 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
   },
 
   saveProfile: async () => {
-    const { profile, isBackendAvailable } = get();
-    if (!profile || !isBackendAvailable) return false;
+    const { profile, isBackendAvailable, commitFormToStore } = get();
+    const currentProfile = commitFormToStore() || profile;
+    if (!currentProfile || !isBackendAvailable) return false;
 
     set({ saveStatus: 'saving' });
     try {
       const response = await fetch('/api/save-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile),
+        body: JSON.stringify(currentProfile),
       });
       if (!response.ok) throw new Error('Save failed');
       useUIStore.getState().addLog('Profile saved');
       set({
-        lastSavedProfileJson: JSON.stringify(profile),
         saveStatus: 'saved',
       });
       return true;
@@ -178,6 +174,5 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
   },
 
   setSaveStatus: (saveStatus) => set({ saveStatus }),
-  setLastSavedProfileJson: (lastSavedProfileJson) => set({ lastSavedProfileJson }),
   setBackendAvailable: (isBackendAvailable) => set({ isBackendAvailable }),
 }));
