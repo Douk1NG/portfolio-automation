@@ -1,74 +1,95 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
 import type { Skill } from '@/types/profile';
+import { useSkillModal } from './useSkillModal';
+import { useCategoryEditor } from './useCategoryEditor';
+import { removeWithUndo } from '@/lib/utils/undo-utils';
+
+const CATEGORY_ACCENT_COLORS = [
+  'hsl(265 89% 65%)',
+  'hsl(340 82% 60%)',
+  'hsl(195 85% 55%)',
+  'hsl(160 70% 50%)',
+  'hsl(35 92% 60%)',
+  'hsl(280 60% 55%)',
+  'hsl(15 85% 58%)',
+  'hsl(210 75% 60%)',
+];
 
 export function useSkillsSection() {
   const sectionPath = 'skills' as const;
-  const [isAdding, setIsAdding] = useState(false);
-  const [newSkillTitle, setNewSkillTitle] = useState('');
-  const [newSkillIconType, setNewSkillIconType] = useState<'lucide' | 'svg'>('lucide');
-  const [newSkillIconValue, setNewSkillIconValue] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('Frontend Development');
+  const skillModal = useSkillModal();
+  const categoryEditor = useCategoryEditor();
 
-  const handleAddSkill = (
-    event: React.ChangeEvent<HTMLFormElement>,
-    pushValue: (value: never) => void,
-  ) => {
-    event.preventDefault();
-    if (newSkillTitle.trim()) {
-      pushValue({
-        id: crypto.randomUUID(),
-        name: newSkillTitle.trim(),
-        category: selectedCategory,
-        icon: newSkillIconType === 'lucide' ? newSkillIconValue.trim() || undefined : undefined,
-        svg: newSkillIconType === 'svg' ? newSkillIconValue.trim() || undefined : undefined,
-      } as never);
-      setNewSkillTitle('');
-      setNewSkillIconValue('');
-      setIsAdding(false);
+  const deriveCategories = useCallback((allSkills: ReadonlyArray<Skill>): ReadonlyArray<string> => {
+    const categorySet = new Set<string>();
+    for (const skill of allSkills) {
+      if (skill.category.trim() !== '') {
+        categorySet.add(skill.category);
+      }
     }
-  };
+    return Array.from(categorySet);
+  }, []);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Escape') {
-      setIsAdding(false);
-      setNewSkillTitle('');
-      setNewSkillIconValue('');
-    }
-  };
+  const getSkillsByCategory = useCallback(
+    (allSkills: ReadonlyArray<Skill>, categoryName: string): ReadonlyArray<Skill> => {
+      return allSkills.filter(
+        (skill) => skill.category === categoryName && skill.name.trim() !== '',
+      );
+    },
+    [],
+  );
 
-  const handleCancel = () => {
-    setIsAdding(false);
-    setNewSkillTitle('');
-    setNewSkillIconValue('');
-  };
+  const getAccentColor = useCallback((categoryIndex: number): string => {
+    return CATEGORY_ACCENT_COLORS[categoryIndex % CATEGORY_ACCENT_COLORS.length];
+  }, []);
 
-  const handleDrop = (
-    itemId: string,
-    categoryId: string,
-    allSkills: Skill[],
-    setValue: (value: never) => void,
-  ) => {
-    const updatedSkills = allSkills.map((skill) =>
-      skill.id === itemId ? { ...skill, category: categoryId } : skill,
-    );
-    setValue(updatedSkills as never);
-  };
+  const handleSaveSkill = useCallback(
+    (
+      savedSkill: Skill,
+      allSkills: ReadonlyArray<Skill>,
+      setValue: (value: never) => void,
+      insertValue: (index: number, value: never) => void,
+    ) => {
+      if (skillModal.mode === 'edit' && skillModal.editingSkill) {
+        const updatedSkills = allSkills.map((skill) =>
+          skill.id === skillModal.editingSkill?.id ? savedSkill : skill,
+        );
+        setValue(updatedSkills as never);
+      } else {
+        insertValue(0, savedSkill as never);
+      }
+      skillModal.closeModal();
+    },
+    [skillModal],
+  );
+
+  const handleDeleteSkill = useCallback(
+    (
+      targetSkill: Skill,
+      allSkills: ReadonlyArray<Skill>,
+      setValue: (value: never) => void,
+    ) => {
+      removeWithUndo({
+        label: `Skill: ${targetSkill.name}`,
+        onRemove: () => {
+          const filteredSkills = allSkills.filter(
+            (skill) => skill.id !== targetSkill.id,
+          );
+          setValue(filteredSkills as never);
+        },
+      });
+    },
+    [],
+  );
 
   return {
     sectionPath,
-    isAdding,
-    setIsAdding,
-    newSkillTitle,
-    setNewSkillTitle,
-    newSkillIconType,
-    setNewSkillIconType,
-    newSkillIconValue,
-    setNewSkillIconValue,
-    selectedCategory,
-    setSelectedCategory,
-    handleAddSkill,
-    handleKeyDown,
-    handleCancel,
-    handleDrop,
+    skillModal,
+    categoryEditor,
+    deriveCategories,
+    getSkillsByCategory,
+    getAccentColor,
+    handleSaveSkill,
+    handleDeleteSkill,
   };
 }

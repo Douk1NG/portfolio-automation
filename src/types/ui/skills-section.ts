@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import type { ProfileFormApi } from '@/types/form-types';
 import type { Skill } from '@/types/profile';
 
@@ -6,53 +5,38 @@ export type SkillsSectionProps = {
   form: ProfileFormApi;
 };
 
-export type SkillCardProps = {
+export type SkillChipProps = {
   skill: Skill;
+  accentColor: string;
+  onEdit: () => void;
   onDelete: () => void;
-  onUpdate: (skill: Skill) => void;
 };
 
-export type CategoryColumnProps = {
-  id: string;
-  title: string;
-  icon: ReactNode;
-  children: ReactNode;
-  onDrop: (itemId: string, categoryId: string) => void;
+export type SkillCategoryGroupProps = {
+  categoryName: string;
+  skills: ReadonlyArray<Skill>;
+  accentColor: string;
+  onAddSkill: () => void;
+  onEditSkill: (skill: Skill) => void;
+  onDeleteSkill: (skill: Skill) => void;
+  onRenameCategory: () => void;
+  onDeleteCategory: () => void;
 };
 
-export type AddSkillFormProps = {
-  newSkillTitle: string;
-  setNewSkillTitle: (title: string) => void;
-  newSkillIconType: 'lucide' | 'svg';
-  setNewSkillIconType: (type: 'lucide' | 'svg') => void;
-  newSkillIconValue: string;
-  setNewSkillIconValue: (value: string) => void;
-  selectedCategory: string;
-  setSelectedCategory: (category: string) => void;
-  handleAddSkill: (
-    event: React.ChangeEvent<HTMLFormElement>,
-    pushValue: (value: never) => void,
-  ) => void;
-  handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  handleCancel: () => void;
-  pushValue: (value: never) => void;
+export type SkillModalMode = 'add' | 'edit';
+
+export type SkillModalProps = {
+  isOpen: boolean;
+  mode: SkillModalMode;
+  categories: ReadonlyArray<string>;
+  initialSkill: Skill | null;
+  preselectedCategory: string;
+  onSave: (skill: Skill) => void;
+  onClose: () => void;
 };
 
-export type SkillCardEditProps = {
-  editedName: string;
-  setEditedName: (val: string) => void;
-  editedCategory: string;
-  setEditedCategory: (val: string) => void;
-  iconType: 'lucide' | 'svg';
-  setIconType: (val: 'lucide' | 'svg') => void;
-  iconValue: string;
-  setIconValue: (val: string) => void;
+export type CategoryEditorProps = {
+  categoryName: string;
+  onConfirm: (newName: string) => void;
   onCancel: () => void;
-  onSave: () => void;
-};
-
-export type SkillCardDisplayProps = {
-  skill: Skill;
-  onEditStart: () => void;
-  onDelete: () => void;
 };

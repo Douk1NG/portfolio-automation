@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { SkillCard } from '../sections/skills/SkillCard';
+import { SkillChip } from '../sections/skills/SkillChip';
 import type { Skill } from '@/types/profile';
 
 const mockSkill: Skill = {
@@ -10,31 +10,58 @@ const mockSkill: Skill = {
   icon: 'code-2',
 };
 
-describe('SkillCard Component', () => {
-  it('enters edit mode and saves new icon', () => {
-    const onUpdate = vi.fn();
-    render(<SkillCard skill={mockSkill} onDelete={vi.fn()} onUpdate={onUpdate} />);
+const testAccentColor = 'hsl(265 89% 65%)';
 
-    // Act - click edit (using aria-label from rendered output)
-    fireEvent.click(screen.getByRole('button', { name: /Edit React/i }));
+describe('SkillChip Component', () => {
+  it('renders skill name and action buttons', () => {
+    const onEdit = vi.fn();
+    const onDelete = vi.fn();
 
-    // Expect edit fields
-    expect(screen.getByDisplayValue('React')).toBeDefined();
-    expect(screen.getByDisplayValue('code-2')).toBeDefined();
-
-    // Act - change icon value
-    fireEvent.change(screen.getByDisplayValue('code-2'), { target: { value: 'brain' } });
-
-    // Act - save
-    fireEvent.click(screen.getByRole('button', { name: /Save/i }));
-
-    // Assert
-    expect(onUpdate).toHaveBeenCalledWith(
-      expect.objectContaining({
-        name: 'React',
-        icon: 'brain',
-        svg: undefined,
-      }),
+    render(
+      <SkillChip
+        skill={mockSkill}
+        accentColor={testAccentColor}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />,
     );
+
+    expect(screen.getByText('React')).toBeDefined();
+    expect(screen.getByRole('button', { name: /Edit React/i })).toBeDefined();
+    expect(screen.getByRole('button', { name: /Delete React/i })).toBeDefined();
+  });
+
+  it('calls onEdit when edit button is clicked', () => {
+    const onEdit = vi.fn();
+    const onDelete = vi.fn();
+
+    render(
+      <SkillChip
+        skill={mockSkill}
+        accentColor={testAccentColor}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /Edit React/i }));
+    expect(onEdit).toHaveBeenCalledOnce();
+  });
+
+  it('calls onDelete when delete button is clicked', () => {
+    const onEdit = vi.fn();
+    const onDelete = vi.fn();
+
+    render(
+      <SkillChip
+        skill={mockSkill}
+        accentColor={testAccentColor}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /Delete React/i }));
+    expect(onDelete).toHaveBeenCalledOnce();
   });
 });

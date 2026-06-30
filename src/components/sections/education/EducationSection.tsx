@@ -22,7 +22,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ form }) => {
             <AddButton
               label="Add Education"
               onClick={() =>
-                field.pushValue({
+                field.insertValue(0, {
                   institution: '',
                   degree: { es: '', en: '' },
                   start: '',

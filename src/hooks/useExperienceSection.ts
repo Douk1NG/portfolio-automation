@@ -9,7 +9,7 @@ type UseExperienceSectionProperties = {
 
 export function useExperienceSection({ form, sectionPath }: UseExperienceSectionProperties) {
   const handleAddExperience = useCallback(() => {
-    form.pushFieldValue(sectionPath, {
+    form.insertFieldValue(sectionPath, 0, {
       company: '',
       role: { es: '', en: '' },
       location: { es: '', en: '' },

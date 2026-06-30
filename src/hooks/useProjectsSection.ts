@@ -9,7 +9,7 @@ type UseProjectsSectionProperties = {
 
 export function useProjectsSection({ form, sectionPath }: UseProjectsSectionProperties) {
   const handleAddProject = useCallback(() => {
-    form.pushFieldValue(sectionPath, {
+    form.insertFieldValue(sectionPath, 0, {
       url: '',
       repoUrl: '',
       tags: [],

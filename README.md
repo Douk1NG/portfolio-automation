@@ -47,7 +47,7 @@ _(Note: `profile.json` is gitignored so your personal data is kept local)._
 
 The tool provides a user-friendly interface to manage your portfolio content without manually editing code.
 
-- **`profile.json`**: This is the single source of truth for your data. As you type in the UI, your changes are automatically saved here.
+- **`profile.json`**: This is the single source of truth for your data, your changes are automatically saved when you change between sections or click the save button.
 
 ### Step-by-Step Workflow
 

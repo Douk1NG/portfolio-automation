@@ -21,7 +21,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({ form }) => {
           {(field) => (
             <AddButton
               label="Add Language"
-              onClick={() => field.pushValue({ name: { es: '', en: '' }, level: '' } as never)}
+              onClick={() => field.insertValue(0, { name: { es: '', en: '' }, level: '' } as never)}
             />
           )}
         </form.Field>
