@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkillModalFormActionsProps {
+type SkillModalFormActionsProps = {
   onClose: () => void;
   hasValidName: boolean;
   submitLabel: string;

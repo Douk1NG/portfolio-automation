@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkillCategorySelectProps {
+type SkillCategorySelectProps = {
   category: string;
   setCategory: (category: string) => void;
   categories: readonly string[];

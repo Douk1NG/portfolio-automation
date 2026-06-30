@@ -5,6 +5,12 @@ import { useUIStore } from './useUIStore';
 
 const MAX_HISTORY = 50;
 
+function isShallowEqualProfile(profileA: Profile, profileB: Profile): boolean {
+  const keys = Object.keys(profileA) as ReadonlyArray<keyof Profile>;
+  if (keys.length !== Object.keys(profileB).length) return false;
+  return keys.every((key) => profileA[key] === profileB[key]);
+}
+
 export type HistoryStore = {
   undoStack: Profile[];
   redoStack: Profile[];
@@ -22,9 +28,10 @@ export const useHistoryStore = create<HistoryStore>((set, get) => ({
 
   snapshot: (currentProfile) => {
     const { undoStack } = get();
-
     const lastSnapshot = undoStack[undoStack.length - 1];
-    if (lastSnapshot && JSON.stringify(lastSnapshot) === JSON.stringify(currentProfile)) return;
+
+    if (lastSnapshot === currentProfile) return;
+    if (lastSnapshot && isShallowEqualProfile(lastSnapshot, currentProfile)) return;
 
     set((state) => ({
       undoStack: [...state.undoStack.slice(-(MAX_HISTORY - 1)), currentProfile],

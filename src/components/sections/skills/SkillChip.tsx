@@ -3,7 +3,7 @@ import { X, Edit2 } from 'lucide-react';
 import type { SkillChipProps } from '@/types/ui/skills-section';
 import { SkillIcon } from '@/components/SkillIcon';
 
-export const SkillChip: React.FC<SkillChipProps> = ({
+const SkillChipContent: React.FC<SkillChipProps> = ({
   skill,
   accentColor,
   onEdit,
@@ -51,3 +51,5 @@ export const SkillChip: React.FC<SkillChipProps> = ({
     </div>
   );
 };
+
+export const SkillChip = React.memo(SkillChipContent);

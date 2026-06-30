@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkillNameInputProps {
+type SkillNameInputProps = {
   name: string;
   setName: (name: string) => void;
 }

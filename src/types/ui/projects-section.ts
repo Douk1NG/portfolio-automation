@@ -7,6 +7,6 @@ export type ProjectsSectionProps = {
 export type ProjectItemProps = {
   form: ProfileFormApi;
   index: number;
-  onRemove: () => void;
+  onRemove: (index: number) => void;
   isLast: boolean;
 };

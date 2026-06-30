@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus, Edit3, Trash2 } from 'lucide-react';
 
-interface SkillCategoryHeaderProps {
+type SkillCategoryHeaderProps = {
   categoryName: string;
   skillCount: number;
   accentColor: string;

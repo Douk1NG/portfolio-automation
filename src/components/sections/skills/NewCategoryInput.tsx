@@ -2,7 +2,7 @@ import React from 'react';
 import type { Skill } from '@/types/profile';
 import type { UseCategoryEditorReturn } from '@/hooks/useCategoryEditor';
 
-interface NewCategoryInputProps {
+type NewCategoryInputProps = {
   newCategoryName: string;
   setNewCategoryName: (name: string) => void;
   categoryEditor: UseCategoryEditorReturn;

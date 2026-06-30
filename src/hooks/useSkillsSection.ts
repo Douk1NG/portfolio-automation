@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { Skill } from '@/types/profile';
 import { useSkillModal } from './useSkillModal';
 import { useCategoryEditor } from './useCategoryEditor';
@@ -15,33 +15,39 @@ const CATEGORY_ACCENT_COLORS = [
   'hsl(210 75% 60%)',
 ];
 
+function extractUniqueCategories(allSkills: ReadonlyArray<Skill>): ReadonlyArray<string> {
+  const categorySet = new Set<string>();
+  for (const skill of allSkills) {
+    if (skill.category.trim() !== '') {
+      categorySet.add(skill.category);
+    }
+  }
+  return Array.from(categorySet);
+}
+
+function filterSkillsByCategory(
+  allSkills: ReadonlyArray<Skill>,
+  categoryName: string,
+): ReadonlyArray<Skill> {
+  return allSkills.filter(
+    (skill) => skill.category === categoryName && skill.name.trim() !== '',
+  );
+}
+
+function resolveAccentColor(categoryIndex: number): string {
+  return CATEGORY_ACCENT_COLORS[categoryIndex % CATEGORY_ACCENT_COLORS.length];
+}
+
 export function useSkillsSection() {
   const sectionPath = 'skills' as const;
   const skillModal = useSkillModal();
   const categoryEditor = useCategoryEditor();
 
-  const deriveCategories = useCallback((allSkills: ReadonlyArray<Skill>): ReadonlyArray<string> => {
-    const categorySet = new Set<string>();
-    for (const skill of allSkills) {
-      if (skill.category.trim() !== '') {
-        categorySet.add(skill.category);
-      }
-    }
-    return Array.from(categorySet);
-  }, []);
+  const { mode: skillModalMode, editingSkill, closeModal: closeSkillModal } = skillModal;
 
-  const getSkillsByCategory = useCallback(
-    (allSkills: ReadonlyArray<Skill>, categoryName: string): ReadonlyArray<Skill> => {
-      return allSkills.filter(
-        (skill) => skill.category === categoryName && skill.name.trim() !== '',
-      );
-    },
-    [],
-  );
-
-  const getAccentColor = useCallback((categoryIndex: number): string => {
-    return CATEGORY_ACCENT_COLORS[categoryIndex % CATEGORY_ACCENT_COLORS.length];
-  }, []);
+  const deriveCategories = useMemo(() => extractUniqueCategories, []);
+  const getSkillsByCategory = useMemo(() => filterSkillsByCategory, []);
+  const getAccentColor = useMemo(() => resolveAccentColor, []);
 
   const handleSaveSkill = useCallback(
     (
@@ -50,17 +56,17 @@ export function useSkillsSection() {
       setValue: (value: never) => void,
       insertValue: (index: number, value: never) => void,
     ) => {
-      if (skillModal.mode === 'edit' && skillModal.editingSkill) {
+      if (skillModalMode === 'edit' && editingSkill) {
         const updatedSkills = allSkills.map((skill) =>
-          skill.id === skillModal.editingSkill?.id ? savedSkill : skill,
+          skill.id === editingSkill.id ? savedSkill : skill,
         );
         setValue(updatedSkills as never);
       } else {
         insertValue(0, savedSkill as never);
       }
-      skillModal.closeModal();
+      closeSkillModal();
     },
-    [skillModal],
+    [skillModalMode, editingSkill, closeSkillModal],
   );
 
   const handleDeleteSkill = useCallback(

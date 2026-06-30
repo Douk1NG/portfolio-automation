@@ -7,6 +7,6 @@ export type EducationSectionProps = {
 export type EducationItemProps = {
   form: ProfileFormApi;
   index: number;
-  onRemove: () => void;
+  onRemove: (index: number) => void;
   isLast: boolean;
 };

@@ -52,7 +52,7 @@ export const SkillIcon: React.FC<SkillIconProps> = ({ icon, svg, className }) =>
   if (icon) {
     return (
       <IconErrorBoundary icon={icon} fallback={<Code2 className={className} />}>
-        <Suspense fallback={<Code2 className={className} />}>
+        <Suspense key={icon} fallback={<Code2 className={className} />}>
           <DynamicIcon name={icon as IconName} className={className} />
         </Suspense>
       </IconErrorBoundary>

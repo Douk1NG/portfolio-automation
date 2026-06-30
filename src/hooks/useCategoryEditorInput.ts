@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 import type { KeyboardEvent } from 'react';
 
-interface UseCategoryEditorInputProps {
+type UseCategoryEditorInputProps = {
   onConfirm: (newName: string) => void;
   onCancel: () => void;
 }

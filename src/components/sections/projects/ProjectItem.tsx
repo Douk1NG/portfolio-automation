@@ -6,14 +6,19 @@ import { projectFields } from '@/components/form/config/project-fields';
 import type { ProfilePath } from '@/types/form-types';
 import type { ProjectItemProps } from '@/types/ui/projects-section';
 
-export const ProjectItem: React.FC<ProjectItemProps> = ({ form, index, onRemove, isLast }) => {
+const ProjectItemContent: React.FC<ProjectItemProps> = ({
+  form,
+  index,
+  onRemove,
+  isLast,
+}) => {
   const sectionPath = 'projects';
 
   return (
     <SectionItem
       label="Project"
       index={index}
-      onRemove={onRemove}
+      onRemove={() => onRemove(index)}
       accentColor="bg-primary"
       showSeparator={!isLast}
     >
@@ -34,3 +39,5 @@ export const ProjectItem: React.FC<ProjectItemProps> = ({ form, index, onRemove,
     </SectionItem>
   );
 };
+
+export const ProjectItem = React.memo(ProjectItemContent);

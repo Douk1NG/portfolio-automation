@@ -33,7 +33,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ form }) => {
                   key={item.url || item.repoUrl || item.name?.en || index}
                   form={form}
                   index={index}
-                  onRemove={() => handleRemoveProject(index)}
+                  onRemove={handleRemoveProject}
                   isLast={index === projects.length - 1}
                 />
               ))}

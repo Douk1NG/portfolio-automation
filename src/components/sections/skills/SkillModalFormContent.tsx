@@ -6,7 +6,7 @@ import { SkillCategorySelect } from './SkillCategorySelect';
 import { SkillIconSelect } from './SkillIconSelect';
 import { SkillModalFormActions } from './SkillModalFormActions';
 
-interface SkillModalFormContentProps {
+type SkillModalFormContentProps = {
   mode: 'add' | 'edit';
   categories: readonly string[];
   initialSkill: Skill | null;

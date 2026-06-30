@@ -1,7 +1,7 @@
 import React from 'react';
 import { SkillIcon } from '@/components/SkillIcon';
 
-interface SkillIconSelectProps {
+type SkillIconSelectProps = {
   iconType: 'lucide' | 'svg';
   setIconType: (type: 'lucide' | 'svg') => void;
   iconValue: string;

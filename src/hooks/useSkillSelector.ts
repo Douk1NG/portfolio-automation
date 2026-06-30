@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useStore, useField } from '@tanstack/react-form';
 import type { ProfileFormApi, ProfilePath } from '@/types/form-types';
 import type { ProfileSchemaType } from '@/types/profile-schema';
@@ -22,10 +22,16 @@ export function useSkillSelector({ form, name }: UseSkillSelectorProperties) {
     return (rawSkills as Skill[]).filter((skill) => skill.name?.trim() !== '');
   });
 
-  const filteredSkills = availableSkills.filter(
-    (skill) =>
-      skill.name.toLowerCase().includes(query.toLowerCase()) &&
-      !selectedValues.includes(skill.name),
+  const lowerCaseQuery = useMemo(() => query.toLowerCase(), [query]);
+
+  const filteredSkills = useMemo(
+    () =>
+      availableSkills.filter(
+        (skill) =>
+          skill.name.toLowerCase().includes(lowerCaseQuery) &&
+          !selectedValues.includes(skill.name),
+      ),
+    [availableSkills, lowerCaseQuery, selectedValues],
   );
 
   const toggleSkill = (skillName: string) => {

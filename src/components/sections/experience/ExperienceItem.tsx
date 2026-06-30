@@ -6,7 +6,7 @@ import { experienceFields } from '@/components/form/config/experience-fields';
 import type { ProfilePath } from '@/types/form-types';
 import type { ExperienceItemProps } from '@/types/ui/experience-section';
 
-export const ExperienceItem: React.FC<ExperienceItemProps> = ({
+const ExperienceItemContent: React.FC<ExperienceItemProps> = ({
   form,
   index,
   onRemove,
@@ -18,7 +18,7 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({
     <SectionItem
       label="Experience"
       index={index}
-      onRemove={onRemove}
+      onRemove={() => onRemove(index)}
       accentColor="bg-primary"
       showSeparator={!isLast}
     >
@@ -39,3 +39,5 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({
     </SectionItem>
   );
 };
+
+export const ExperienceItem = React.memo(ExperienceItemContent);

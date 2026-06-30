@@ -4,14 +4,14 @@ import { DynamicFieldList } from '@/components/form/DynamicFieldList';
 import { languageFields } from '@/components/form/config/language-fields';
 import type { LanguageItemProps } from '@/types/ui/languages-section';
 
-export const LanguageItem: React.FC<LanguageItemProps> = ({ form, index, onRemove, isLast }) => {
+const LanguageItemContent: React.FC<LanguageItemProps> = ({ form, index, onRemove, isLast }) => {
   const sectionPath = 'languages';
 
   return (
     <SectionItem
       label="Language"
       index={index}
-      onRemove={onRemove}
+      onRemove={() => onRemove(index)}
       accentColor="bg-primary"
       showSeparator={!isLast}
     >
@@ -19,3 +19,5 @@ export const LanguageItem: React.FC<LanguageItemProps> = ({ form, index, onRemov
     </SectionItem>
   );
 };
+
+export const LanguageItem = React.memo(LanguageItemContent);

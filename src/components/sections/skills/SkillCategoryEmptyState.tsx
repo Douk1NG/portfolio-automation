@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 
-interface SkillCategoryEmptyStateProps {
+type SkillCategoryEmptyStateProps = {
   onAddSkill: () => void;
 }
 

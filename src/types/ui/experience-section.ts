@@ -7,6 +7,6 @@ export type ExperienceSectionProps = {
 export type ExperienceItemProps = {
   form: ProfileFormApi;
   index: number;
-  onRemove: () => void;
+  onRemove: (index: number) => void;
   isLast: boolean;
 };

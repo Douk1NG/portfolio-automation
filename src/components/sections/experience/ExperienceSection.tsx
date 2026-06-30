@@ -33,7 +33,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ form }) => {
                   key={item.company || item.start || index}
                   form={form}
                   index={index}
-                  onRemove={() => handleRemoveExperience(index)}
+                  onRemove={handleRemoveExperience}
                   isLast={index === experiences.length - 1}
                 />
               ))}

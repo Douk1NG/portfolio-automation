@@ -2,6 +2,13 @@ import { useState, useCallback } from 'react';
 import type { Skill } from '@/types/profile';
 import type { SkillModalMode } from '@/types/ui/skills-section';
 
+type SkillModalState = {
+  isOpen: boolean;
+  mode: SkillModalMode;
+  editingSkill: Skill | null;
+  preselectedCategory: string;
+};
+
 type UseSkillModalReturn = {
   isOpen: boolean;
   mode: SkillModalMode;
@@ -12,37 +19,40 @@ type UseSkillModalReturn = {
   closeModal: () => void;
 };
 
+const CLOSED_MODAL_STATE: SkillModalState = {
+  isOpen: false,
+  mode: 'add',
+  editingSkill: null,
+  preselectedCategory: '',
+};
+
 export function useSkillModal(): UseSkillModalReturn {
-  const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<SkillModalMode>('add');
-  const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
-  const [preselectedCategory, setPreselectedCategory] = useState('');
+  const [modalState, setModalState] = useState<SkillModalState>(CLOSED_MODAL_STATE);
 
   const openAddModal = useCallback((category: string) => {
-    setMode('add');
-    setEditingSkill(null);
-    setPreselectedCategory(category);
-    setIsOpen(true);
+    setModalState({
+      isOpen: true,
+      mode: 'add',
+      editingSkill: null,
+      preselectedCategory: category,
+    });
   }, []);
 
   const openEditModal = useCallback((skill: Skill) => {
-    setMode('edit');
-    setEditingSkill(skill);
-    setPreselectedCategory(skill.category);
-    setIsOpen(true);
+    setModalState({
+      isOpen: true,
+      mode: 'edit',
+      editingSkill: skill,
+      preselectedCategory: skill.category,
+    });
   }, []);
 
   const closeModal = useCallback(() => {
-    setIsOpen(false);
-    setEditingSkill(null);
-    setPreselectedCategory('');
+    setModalState(CLOSED_MODAL_STATE);
   }, []);
 
   return {
-    isOpen,
-    mode,
-    editingSkill,
-    preselectedCategory,
+    ...modalState,
     openAddModal,
     openEditModal,
     closeModal,

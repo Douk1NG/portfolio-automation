@@ -7,14 +7,13 @@ import { useHistoryKeys } from '@/hooks/useHistoryKeys';
 
 const FORM_SYNC_DELAY_MS = 400;
 
-let formSyncTimeout: ReturnType<typeof setTimeout> | null = null;
-
 export const useProfileForm = () => {
   const profileRevision = useProfileStore((state) => state.profileRevision);
   const syncProfileFromForm = useProfileStore((state) => state.syncProfileFromForm);
   const registerFormCommit = useProfileStore((state) => state.registerFormCommit);
   const lastSyncedRevision = useRef(-1);
   const lastSyncedValuesJson = useRef<string | null>(null);
+  const formSyncTimeoutReference = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useHistoryKeys();
 
@@ -48,10 +47,10 @@ export const useProfileForm = () => {
     const subscription = form.store.subscribe(() => {
       if (!form.state.isDirty) return;
 
-      if (formSyncTimeout) clearTimeout(formSyncTimeout);
+      if (formSyncTimeoutReference.current) clearTimeout(formSyncTimeoutReference.current);
 
-      formSyncTimeout = setTimeout(() => {
-        formSyncTimeout = null;
+      formSyncTimeoutReference.current = setTimeout(() => {
+        formSyncTimeoutReference.current = null;
         const { values, isDirty } = form.state;
         if (!isDirty) return;
 
@@ -59,14 +58,13 @@ export const useProfileForm = () => {
         if (currentJson === lastSyncedValuesJson.current) return;
         lastSyncedValuesJson.current = currentJson;
 
-        // Sync to store without stringify lag
         syncProfileFromForm(values as Profile);
       }, FORM_SYNC_DELAY_MS);
     });
 
     return () => {
       subscription.unsubscribe();
-      if (formSyncTimeout) clearTimeout(formSyncTimeout);
+      if (formSyncTimeoutReference.current) clearTimeout(formSyncTimeoutReference.current);
     };
   }, [form, syncProfileFromForm]);
 

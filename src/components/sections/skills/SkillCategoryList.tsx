@@ -4,19 +4,19 @@ import { CategoryEditor } from './CategoryEditor';
 import { SkillCategoryGroup } from './SkillCategoryGroup';
 import type { UseCategoryEditorReturn } from '@/hooks/useCategoryEditor';
 
-interface SkillCategoryListProps {
-  categories: readonly string[];
-  allSkills: readonly Skill[];
+type SkillCategoryListProps = {
+  categories: ReadonlyArray<string>;
+  allSkills: ReadonlyArray<Skill>;
   categoryEditor: UseCategoryEditorReturn;
-  getSkillsByCategory: (skills: readonly Skill[], category: string) => readonly Skill[];
+  getSkillsByCategory: (skills: ReadonlyArray<Skill>, category: string) => ReadonlyArray<Skill>;
   getAccentColor: (index: number) => string;
   openAddModal: (category: string) => void;
   openEditModal: (skill: Skill) => void;
-  handleDeleteSkill: (skill: Skill, allSkills: readonly Skill[], setValue: (value: never) => void) => void;
+  handleDeleteSkill: (skill: Skill, allSkills: ReadonlyArray<Skill>, setValue: (value: never) => void) => void;
   setValue: (value: never) => void;
-}
+};
 
-export const SkillCategoryList: React.FC<SkillCategoryListProps> = ({
+const SkillCategoryListContent: React.FC<SkillCategoryListProps> = ({
   categories,
   allSkills,
   categoryEditor,
@@ -64,3 +64,5 @@ export const SkillCategoryList: React.FC<SkillCategoryListProps> = ({
     </>
   );
 };
+
+export const SkillCategoryList = React.memo(SkillCategoryListContent);

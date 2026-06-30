@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useProfileStore } from '@/store/useProfileStore';
 import { useUIStore } from '@/store/useUIStore';
 import { useProfileForm } from '@/hooks/useProfileForm';
@@ -28,18 +28,23 @@ export const useProfileFormView = () => {
   const saveProfile = useProfileStore((state) => state.saveProfile);
   const { form } = useProfileForm();
 
-  const handleSectionChange = (sectionId: string) => {
-    setActiveSection(sectionId);
-    if (form.state.isDirty) {
-      saveProfile().then((success) => {
-        if (success) {
-          form.reset(form.state.values);
-        } else {
-          import('sonner').then(({ toast }) => toast.error('Failed to save profile on tab switch.'));
-        }
-      });
-    }
-  };
+  const handleSectionChange = useCallback(
+    (sectionId: string) => {
+      setActiveSection(sectionId);
+      if (form.state.isDirty) {
+        saveProfile().then((success) => {
+          if (success) {
+            form.reset(form.state.values);
+          } else {
+            import('sonner').then(({ toast }) =>
+              toast.error('Failed to save profile on tab switch.'),
+            );
+          }
+        });
+      }
+    },
+    [setActiveSection, saveProfile, form],
+  );
 
   const SectionComponent = SECTION_COMPONENTS[activeSection as SectionKey] || null;
 

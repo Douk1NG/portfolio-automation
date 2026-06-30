@@ -4,7 +4,7 @@ import { SkillChip } from './SkillChip';
 import { SkillCategoryHeader } from './SkillCategoryHeader';
 import { SkillCategoryEmptyState } from './SkillCategoryEmptyState';
 
-export const SkillCategoryGroup: React.FC<SkillCategoryGroupProps> = ({
+const SkillCategoryGroupContent: React.FC<SkillCategoryGroupProps> = ({
   categoryName,
   skills,
   accentColor,
@@ -48,3 +48,5 @@ export const SkillCategoryGroup: React.FC<SkillCategoryGroupProps> = ({
     </div>
   );
 };
+
+export const SkillCategoryGroup = React.memo(SkillCategoryGroupContent);

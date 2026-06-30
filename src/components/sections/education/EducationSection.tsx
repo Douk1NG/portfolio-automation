@@ -11,6 +11,16 @@ import type { EducationSectionProps } from '@/types/ui/education-section';
 const EducationSection: React.FC<EducationSectionProps> = ({ form }) => {
   const sectionPath = 'education' as const;
 
+  const handleRemoveEducation = React.useCallback(
+    (index: number) => {
+      removeWithUndo({
+        label: 'Education',
+        onRemove: () => form.removeFieldValue(sectionPath, index),
+      });
+    },
+    [form, sectionPath],
+  );
+
   return (
     <FormSection
       title="Education"
@@ -42,12 +52,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ form }) => {
                 key={item.institution || item.start || i}
                 form={form}
                 index={i}
-                onRemove={() =>
-                  removeWithUndo({
-                    label: 'Education',
-                    onRemove: () => form.removeFieldValue(sectionPath, i),
-                  })
-                }
+                onRemove={handleRemoveEducation}
                 isLast={i === (field.state.value as Education[]).length - 1}
               />
             ))}

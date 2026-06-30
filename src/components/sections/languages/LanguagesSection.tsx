@@ -11,6 +11,16 @@ import type { LanguagesSectionProps } from '@/types/ui/languages-section';
 const LanguagesSection: React.FC<LanguagesSectionProps> = ({ form }) => {
   const sectionPath = 'languages' as const;
 
+  const handleRemoveLanguage = React.useCallback(
+    (index: number) => {
+      removeWithUndo({
+        label: 'Language',
+        onRemove: () => form.removeFieldValue(sectionPath, index),
+      });
+    },
+    [form, sectionPath],
+  );
+
   return (
     <FormSection
       title="Languages"
@@ -35,12 +45,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({ form }) => {
                 key={item.name?.en || item.level || i}
                 form={form}
                 index={i}
-                onRemove={() =>
-                  removeWithUndo({
-                    label: 'Language',
-                    onRemove: () => form.removeFieldValue(sectionPath, i),
-                  })
-                }
+                onRemove={handleRemoveLanguage}
                 isLast={i === (field.state.value as Language[]).length - 1}
               />
             ))}

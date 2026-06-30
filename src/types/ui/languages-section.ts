@@ -7,6 +7,6 @@ export type LanguagesSectionProps = {
 export type LanguageItemProps = {
   form: ProfileFormApi;
   index: number;
-  onRemove: () => void;
+  onRemove: (index: number) => void;
   isLast: boolean;
 };
