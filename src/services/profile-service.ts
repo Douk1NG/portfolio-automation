@@ -1,5 +1,6 @@
 import { apiClient } from '@/services/api-client';
 import type { Profile } from '@/types/profile';
+import { ProfileSchema } from '@/types/profile-schema';
 
 export type ProfileFetchResult = {
   data: Profile | null;
@@ -10,7 +11,7 @@ export type ProfileFetchResult = {
 const loadStaticProfile = async (): Promise<Profile | null> => {
   try {
     const module = await import('@/data/profile.json');
-    return module.default as Profile;
+    return ProfileSchema.parse(module.default);
   } catch {
     return null;
   }
